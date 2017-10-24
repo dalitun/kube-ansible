@@ -1,7 +1,7 @@
 ---
 # Download binary package from source
 
-download_tmp: /tmp
+download_tmp: /home/cloud
 
 pkg_bases:
   kube:

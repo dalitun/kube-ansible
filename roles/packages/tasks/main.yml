@@ -22,12 +22,18 @@
   with_items: "{{ pkg['items'] }}"
   register: pkg_check
 
+#- name: "Downloading {{ pkg.description }}"
+#  when: pkg is defined and not item.stat.exists
+#  get_url:
+#    url: "{{ pkg.url }}/{{ item.item }}"
+#    dest: "{{ download_tmp }}"
+#    validate_certs: False
+#  with_items: "{{ pkg_check.results }}"
+#  register: pkg_download
+
 - name: "Downloading {{ pkg.description }}"
   when: pkg is defined and not item.stat.exists
-  get_url:
-    url: "{{ pkg.url }}/{{ item.item }}"
-    dest: "{{ download_tmp }}"
-    validate_certs: False
+  shell: cd {{ download_tmp }} && wget ----no-check-certificate  {{ pkg.url }}/{{ item.item }} 
   with_items: "{{ pkg_check.results }}"
   register: pkg_download
 
